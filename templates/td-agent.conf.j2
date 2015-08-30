@@ -1,0 +1,21 @@
+<source>
+  type dstat
+  tag dstat.__HOSTNAME__
+  option -a
+  delay 3
+</source>
+
+<match dstat.**>
+  type flatten_hash
+  add_tag_prefix graphite.
+  separator .
+</match>
+
+<match graphite.dstat.**>
+  type graphite
+  host mon00
+  port 2003
+  tag_for prefix
+  remove_tag_prefix graphite.dstat.
+  name_key_pattern ^((?!hostname).)*$
+</match>
