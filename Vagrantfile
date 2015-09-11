@@ -2,8 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "puppetlabs/centos-6.6-64-nocm"
-  # config.vm.box = "puppetlabs/centos-7.0-64-puppet"
+  config.vm.box = "bento/centos-6.7"
   vhosts = [
     {"name" => "mon00", "ip" => "192.168.33.10", "cpu" => 2, "memory" => 1024},
     {"name" => "mon01", "ip" => "192.168.33.11", "cpu" => 2, "memory" => 1024},
