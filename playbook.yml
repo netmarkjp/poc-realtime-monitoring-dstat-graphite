@@ -1,8 +1,9 @@
 - hosts: all
   sudo: yes
   tasks:
-    - lineinfile: regexp="^nameserver " line="nameserver 8.8.8.8" dest=/etc/resolv.conf
 #    - yum: name=* state=latest
+    - yum: name=libselinux-python
+    - selinux: state=disabled
     - yum: name=ntp
     - service: name=ntpd state=started enabled=yes
     - yum: name=dstat
@@ -64,6 +65,7 @@
           - mysql-server
           - MySQL-python
     - service: name=memcached state=started enabled=yes
+    - template: src=templates/storage-schemas.conf.j2 dest=/etc/carbon/storage-schemas.conf owner=root group=root mode=644
     - service: name=carbon-cache state=started enabled=yes
     - service: name=mysqld state=started enabled=yes
     - template: src=templates/local_settings.py.j2 dest=/etc/graphite-web/local_settings.py owner=root group=root mode=644
